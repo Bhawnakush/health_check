@@ -4,6 +4,7 @@
 
   echo "=== Disk Usage Check ===" > $OUTPUT_FILE
   df -h >> $OUTPUT_FILE
+  echo "hii this is me bhawna"
 
   USAGE=$(df / | awk 'END{print $5}' | tr -d '%')
   if [ "$USAGE" -gt "$THRESHOLD" ]; then

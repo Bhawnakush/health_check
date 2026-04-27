@@ -30,7 +30,7 @@
                 }
             }
             steps{
-                echo "aws-cli image "
+                echo "aws-cli image done"
                 withCredentials([usernamePassword(credentialsId: 'my-aws', passwordVariable: 'AWS_SECRET_ACCESS_KEY', usernameVariable: 'AWS_ACCESS_KEY_ID')]) {
     // some block
     sh '''

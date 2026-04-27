@@ -36,7 +36,7 @@
     sh '''
                   aws --version
                   aws s3 ls
-                  echo "hellloooo how are you! " > index.html
+                  echo "hellloooo how are you! " > index.txt
                   aws s3 cp index.txt s3://learn-jenkins-1208/index.txt
                   '''
 }

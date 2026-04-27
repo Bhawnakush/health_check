@@ -21,6 +21,20 @@
       }
 
       stages {
+         stage('aws')
+         {
+            agent{
+                docker{
+                    image 'amazon/aws-cli'
+                }
+            }
+            steps{
+                echo "aws-cli image "
+                sh '''
+                  aws --version
+                  '''
+            }
+         }
           stage('Disk Check') {
               steps {
                   sh 'bash scripts/check_disk.sh'

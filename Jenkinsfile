@@ -21,28 +21,7 @@
       }
 
       stages {
-         stage('aws')
-         {
-            agent{
-                docker{
-                    image 'amazon/aws-cli'
-                    args "--entrypoint=''"
-                }
-            }
-            steps{
-                echo "aws-cli image done"
-                withCredentials([usernamePassword(credentialsId: 'my-aws', passwordVariable: 'AWS_SECRET_ACCESS_KEY', usernameVariable: 'AWS_ACCESS_KEY_ID')]) {
-    // some block
-    sh '''
-                  aws --version
-                  aws s3 ls
-                  echo "hellloooo how are you! " > index.txt
-                  aws s3 cp index.txt s3://learn-jenkins-1208/index.txt
-                  '''
-}
-                
-            }
-         }
+       
           stage('Disk Check') {
               steps {
                   sh 'bash scripts/check_disk.sh'
@@ -82,6 +61,31 @@
                   archiveArtifacts artifacts: 'reports/final_report.html', fingerprint: true
               }
           }
+
+  stage('aws')
+         {
+            agent{
+                docker{
+                    image 'amazon/aws-cli'
+                    args "--entrypoint=''"
+                }
+            }
+            steps{
+                echo "aws-cli image done"
+                withCredentials([usernamePassword(credentialsId: 'my-aws', passwordVariable: 'AWS_SECRET_ACCESS_KEY', usernameVariable: 'AWS_ACCESS_KEY_ID')]) {
+    // some block
+    sh '''
+                  aws --version
+                  aws s3 ls
+                 
+                  
+                  aws s3 sync reports s3://learn-jenkins-1208
+                  '''
+}
+                
+            }
+         }
+
       }
 
       post {

@@ -47,8 +47,12 @@
               }
           }
           stage('Generate Report') {
+              
               steps {
-                  sh 'python3 generate_report.py'
+                    sh '''
+              docker build -t report-generator .
+              docker run --rm -v $(pwd)/reports:/app/reports report-generator
+          '''
               }
           }
           stage('Archive Report') {

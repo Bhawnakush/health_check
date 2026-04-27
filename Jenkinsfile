@@ -67,7 +67,7 @@
             agent{
                 docker{
                     image 'amazon/aws-cli'
-                    args "--entrypoint=''"
+                    args "--entrypoint='' -v ${WORKSPACE}/reports:/reports " 
                 }
             }
             steps{
@@ -79,7 +79,7 @@
                   aws s3 ls
                  
                    ls -la reports/ 
-                  aws s3 sync reports s3://learn-jenkins-1208
+                  aws s3 sync /reports s3://learn-jenkins-1208
                   '''
 }
                 
